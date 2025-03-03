@@ -94,7 +94,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i server-key.pem ubuntu@ec2-18-233-157-140.compute-1.amazonaws.com << 'EOF'
             echo "Checking available Docker images..."
             sudo docker images
-            
+
             echo "Checking existing containers..."
             sudo docker ps -a
             
