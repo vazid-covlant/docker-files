@@ -69,8 +69,9 @@ jobs:
       - name: Run new container
         run: |
           ssh -o StrictHostKeyChecking=no -i server-key.pem ubuntu@ec2-18-233-157-140.compute-1.amazonaws.com << 'EOF'
-            sudo docker run -d --name dockerdemo -p 80:8080 vazidcovlant/dockerdemo:latest
+            timeout 300 sudo docker run -d --name dockerdemo -p 80:8080 vazidcovlant/dockerdemo:latest
           EOF
+
 
 
 
