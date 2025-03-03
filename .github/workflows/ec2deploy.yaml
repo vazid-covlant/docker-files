@@ -55,11 +55,13 @@ jobs:
             then
               echo "Installing Docker Compose v2..."
               sudo apt update
-              sudo apt install -y docker-compose-plugin
+              sudo curl -SL https://github.com/docker/compose/releases/download/v2.33.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+              sudo chmod +x /usr/local/bin/docker-compose
+              docker-compose version
             else
               echo "Docker Compose v2 is already installed."
             fi
-            docker compose version
+            docker-compose version
           EOF
       - name: Clean up Docker system
         run: |
@@ -94,7 +96,7 @@ jobs:
             sudo docker rm dockerdemo || true
 
             echo "Running new container..."
-            sudo docker compose up -d
+            sudo docker-compose up -d
             sleep 5
 
             echo "Verifying running containers..."
