@@ -31,15 +31,15 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: list 
         run: ls -al
-      - name: Debug - Find `docker-compose.yaml`
+      - name: Find `docker-compose.yaml`
         run: find . -name "docker-compose.yaml"
       - name: Copy docker-compose.yaml to EC2
         run: |
           scp -o StrictHostKeyChecking=no -i server-key.pem docker-compose.yaml ubuntu@ec2-18-233-157-140.compute-1.amazonaws.com:~/docker-compose.yaml
-      - name: Checkout code
-        uses: actions/checkout@v3
       - name: Set permission for private key
         run: |
           echo "${{ secrets.AWS_PRIVATE_KEY }}" | tr -d '\r' > server-key.pem
