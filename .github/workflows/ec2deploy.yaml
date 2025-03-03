@@ -51,18 +51,15 @@ jobs:
             else
               echo "Docker is already installed."
             fi
-
-            # Install Docker Compose if not installed
-            if ! command -v docker-compose &> /dev/null
+            if ! docker compose version &> /dev/null
             then
-              echo "Installing Docker Compose..."
-              sudo apt-get update
-              sudo apt-get install docker-compose-plugin
-              docker compose version
+              echo "Installing Docker Compose v2..."
+              sudo apt update
+              sudo apt install -y docker-compose-plugin
             else
-              echo "Docker Compose is already installed."
-              docker compose version
+              echo "Docker Compose v2 is already installed."
             fi
+            docker compose version
           EOF
       - name: Clean up Docker system
         run: |
