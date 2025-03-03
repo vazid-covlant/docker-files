@@ -57,7 +57,9 @@ jobs:
             then
               echo "Installing Docker Compose..."
               sudo apt update
-              sudo apt install -y docker-compose
+              curl -SL https://github.com/docker/compose/releases/download/v2.33.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose            
+              chmod +x /usr/local/bin/docker-compose
+              docker compose --version
             else
               echo "Docker Compose is already installed."
             fi
@@ -84,9 +86,23 @@ jobs:
       - name: Run new container using Docker Compose
         run: |
           ssh -o StrictHostKeyChecking=no -i server-key.pem ubuntu@ec2-18-233-157-140.compute-1.amazonaws.com << 'EOF'
-            sudo docker compose down || true
+            echo "Checking available Docker images..."
+            sudo docker images
+            
+            echo "Checking existing containers..."
+            sudo docker ps -a
+            
+            echo "Stopping and removing old container..."
+            sudo docker stop dockerdemo || true
+            sudo docker rm dockerdemo || true
+
+            echo "Running new container..."
             sudo docker compose up -d
             sleep 5
+
+            echo "Verifying running containers..."
             sudo docker ps
-            sudo docker logs dockerdemo
+
+            echo "Fetching container logs..."
+            sudo docker logs dockerdemo || echo "No logs found."
           EOF
