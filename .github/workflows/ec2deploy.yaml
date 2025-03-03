@@ -31,9 +31,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Copy docker-compose.yml to EC2
+      - name: Copy docker-compose.yaml to EC2
         run: |
-          scp -o StrictHostKeyChecking=no -i server-key.pem docker-compose.yml ubuntu@ec2-18-233-157-140.compute-1.amazonaws.com:~/docker-compose.yml
+          scp -o StrictHostKeyChecking=no -i server-key.pem docker-compose.yaml ubuntu@ec2-18-233-157-140.compute-1.amazonaws.com:~/docker-compose.yaml
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Set permission for private key
@@ -99,7 +99,7 @@ jobs:
             sudo docker rm dockerdemo || true
 
             echo "Running new container..."
-           sudo docker-compose -f ~/docker-compose.yml up -d || echo "Docker Compose failed!"
+           sudo docker-compose -f ~/docker-compose.yaml up -d || echo "Docker Compose failed!"
             sleep 5
 
             echo "Verifying running containers..."
