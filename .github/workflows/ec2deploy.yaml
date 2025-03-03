@@ -31,9 +31,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - name: Copy docker-compose.yml to EC2
-      run: |
-        scp -o StrictHostKeyChecking=no -i server-key.pem docker-compose.yml ubuntu@ec2-18-233-157-140.compute-1.amazonaws.com:~/docker-compose.yml
+      - name: Copy docker-compose.yml to EC2
+        run: |
+          scp -o StrictHostKeyChecking=no -i server-key.pem docker-compose.yml ubuntu@ec2-18-233-157-140.compute-1.amazonaws.com:~/docker-compose.yml
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Set permission for private key
