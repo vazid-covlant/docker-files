@@ -1,0 +1,8 @@
+version: '1'
+services:
+  app:
+    image: vazidcovlent/dockerdemo:latest
+    container_name: dockerdemo
+    restart: always
+    ports:
+    - "80:8080"
