@@ -61,6 +61,7 @@ jobs:
               docker compose version
             else
               echo "Docker Compose is already installed."
+              docker compose version
             fi
           EOF
       - name: Clean up Docker system
