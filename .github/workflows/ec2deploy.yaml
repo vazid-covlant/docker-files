@@ -37,13 +37,13 @@ jobs:
         run: ls -al
       - name: Find `docker-compose.yaml`
         run: find . -name "docker-compose.yaml"
-      - name: Copy docker-compose.yaml to EC2
-        run: |
-          scp -o StrictHostKeyChecking=no -i server-key.pem docker-compose.yaml ubuntu@ec2-18-233-157-140.compute-1.amazonaws.com:~/docker-compose.yaml
       - name: Set permission for private key
         run: |
           echo "${{ secrets.AWS_PRIVATE_KEY }}" | tr -d '\r' > server-key.pem
           chmod 600 server-key.pem
+      - name: Copy docker-compose.yaml to EC2
+        run: |
+          scp -o StrictHostKeyChecking=no -i server-key.pem docker-compose.yaml ubuntu@ec2-18-233-157-140.compute-1.amazonaws.com:~/docker-compose.yaml
       - name: Ensure Docker and Docker Compose are installed
         run: |
           ssh -o StrictHostKeyChecking=no -i server-key.pem ubuntu@ec2-18-233-157-140.compute-1.amazonaws.com << 'EOF'
