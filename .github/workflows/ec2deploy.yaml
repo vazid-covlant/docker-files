@@ -40,7 +40,7 @@ jobs:
           password: ${{ env.DOCKERHUB_TOKEN }}
       - name: Set permission for private key
         run: |
-          echo "${{ env.AWS.PRIVATE.KEY }}" > server-key.pem
+          echo "${{ env.AWS_PRIVATE_KEY }}" > server-key.pem
           chmod 600 server-key.pem
       - name: Pull Docker Image
         run: |
