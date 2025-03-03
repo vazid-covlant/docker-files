@@ -1,6 +1,6 @@
 services:
   app:
-    image: vazidcovlent/dockerdemo:latest
+    image: vazidcovlant/dockerdemo:latest
     container_name: dockerdemo
     restart: always
     ports:
